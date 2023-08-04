@@ -31,7 +31,6 @@ class CoursesController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
         $course = new Course;
         $course->title = $request->title;
         $course->description = $request->description;

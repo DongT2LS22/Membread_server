@@ -2,11 +2,14 @@
 
 use App\Http\Controllers\Api\CoursesController;
 use App\Http\Controllers\Api\LessonController;
+use App\Http\Controllers\Api\ParticipantController;
 use App\Http\Controllers\Api\VocabularyController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\EmailController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\ResetPasswordController;
+use App\Models\Vocabulary;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,11 +24,11 @@ use App\Http\Controllers\ResetPasswordController;
 
 Route::middleware('auth:sanctum')->group(
     function () {
-        Route::get('/logout',[AuthController::class,'logout']);
+        Route::get('/logout', [AuthController::class, 'logout']);
     }
 );
 Route::middleware('guest')->group(
-    function(){
+    function () {
         Route::post('/login', [AuthController::class, 'login']);
         Route::post('/register', [AuthController::class, 'register']);
     }
@@ -59,3 +62,8 @@ Route::get('/vocabulary/lesson_id/{id}', [VocabularyController::class, 'index'])
 Route::get('/vocabulary/{id}', [VocabularyController::class, 'show']);
 Route::put('/vocabulary/{id}', [VocabularyController::class, 'update']);
 Route::delete('/vocabulary/{id}', [VocabularyController::class, 'destroy']);
+
+
+Route::post('/participant', [ParticipantController::class, 'store']);
+
+Route::get('/a', [EmailController::class, 'sendEmail']);

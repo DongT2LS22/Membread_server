@@ -10,4 +10,6 @@ class Participant extends Model
     use HasFactory;
 
     public $timestamps = false;
+
+    
 }

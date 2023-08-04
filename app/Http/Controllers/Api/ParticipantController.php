@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Participant;
 use Illuminate\Http\Request;
 
 class ParticipantController extends Controller
@@ -25,7 +26,14 @@ class ParticipantController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $participant = new Participant;
+        $participant->course_id = $request->course_id;
+        $participant->user_id = $request->user_id;
+        $participant->role = 1;
+        $participant->save();
+        return response()->json([
+            'message' => 'completed'
+        ]);
     }
 
     /**
