@@ -1,0 +1,33 @@
+version: '3.4'
+services:
+
+  #PHP Service
+  app:
+    image: membread
+    restart: unless-stopped
+    volumes:
+      - ./:/var/www/html
+
+  #Nginx Service
+  webserver:
+    image: nginx:1.17-alpine
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    volumes:
+      - ./:/var/www/html
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+  
+  db:
+    image: mongo:4.4
+    volumes:
+      - .docker/data/db:/data/db
+    ports:
+      - 27017:27017
+    restart: unless-stopped
+  
+  redis:
+    image: redis:5-alpine
+    volumes:
+      - .docker/data/redis:/data
+    restart: unless-stopped
