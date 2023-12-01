@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Vocabulary extends Model
 {
     use HasFactory;
+    protected $connection = 'pgsql';
     protected $fillable = [
         'vocabulary',
         'mean',

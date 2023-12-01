@@ -9,6 +9,7 @@ class ResetPasswordController extends Controller
 {
     public function __invoke(Request $request)
     {
+        
         $request->validate([
             'code' => 'required|string|exists:reset_code_passwords',
             'password' => 'required|string|min:8|confirmed',

@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class ResetCodePassword extends Model
 {
     use HasFactory,SoftDeletes;
-
+    protected $connection = 'pgsql';
     protected $fillable = [
         'email',
         'code',

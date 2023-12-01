@@ -38,30 +38,56 @@ Route::middleware('guest')->group(
 Route::post('password/email',  ForgotPasswordController::class);
 Route::post('password/reset', ResetPasswordController::class);
 
+// Route::get('/home', function () {
+//     return response('hello world', 200)->header('Content-Type', 'text/plain');
+// });
 
-Route::get('/home', function () {
-    return response('hello world', 200)->header('Content-Type', 'text/plain');
-});
-
-Route::get('/course/{id}', [CoursesController::class, 'show']);
-Route::post('course', [CoursesController::class, 'store']);
-Route::put('/course/{id}', [CoursesController::class, 'update']);
-Route::delete('/course/{id}', [CoursesController::class, 'destroy']);
-
-
-
-Route::get('/lesson/course_id/{id}', [LessonController::class, 'index']);
-Route::post('/lesson', [LessonController::class, 'store']);
-Route::get('/lesson/{id}', [LessonController::class, 'show']);
-Route::delete('/lesson/{id}', [LessonController::class, 'destroy']);
-Route::put('/lesson/{id}', [LessonController::class, 'update']);
+Route::prefix('course')->group(
+    function () {
+        Route::get('/{id}', [CoursesController::class, 'show']);
+        Route::post('/', [CoursesController::class, 'store']);
+        Route::put('/{id}', [CoursesController::class, 'update']);
+        Route::delete('/{id}', [CoursesController::class, 'destroy']);
+    }
+);
+// Route::get('/course/{id}', [CoursesController::class, 'show']);
+// Route::post('course', [CoursesController::class, 'store']);
+// Route::put('/course/{id}', [CoursesController::class, 'update']);
+// Route::delete('/course/{id}', [CoursesController::class, 'destroy']);
 
 
-Route::post('/vocabulary', [VocabularyController::class, 'store']);
-Route::get('/vocabulary/lesson_id/{id}', [VocabularyController::class, 'index']);
-Route::get('/vocabulary/{id}', [VocabularyController::class, 'show']);
-Route::put('/vocabulary/{id}', [VocabularyController::class, 'update']);
-Route::delete('/vocabulary/{id}', [VocabularyController::class, 'destroy']);
+Route::prefix('lesson')->group(
+    function () {
+        Route::get('/course_id/{id}', [LessonController::class, 'index']);
+        Route::post('/', [LessonController::class, 'store']);
+        Route::get('/{id}', [LessonController::class, 'show']);
+        Route::delete('/{id}', [LessonController::class, 'destroy']);
+        Route::put('/{id}', [LessonController::class, 'update']);
+    }
+);
+
+// Route::get('/lesson/course_id/{id}', [LessonController::class, 'index']);
+// Route::post('/lesson', [LessonController::class, 'store']);
+// Route::get('/lesson/{id}', [LessonController::class, 'show']);
+// Route::delete('/lesson/{id}', [LessonController::class, 'destroy']);
+// Route::put('/lesson/{id}', [LessonController::class, 'update']);
+
+
+Route::prefix('/vocabulary')->group(
+    function () {
+        Route::post('/', [VocabularyController::class, 'store']);
+        Route::get('/lesson_id/{id}', [VocabularyController::class, 'index']);
+        Route::get('/{id}', [VocabularyController::class, 'show']);
+        Route::put('/{id}', [VocabularyController::class, 'update']);
+        Route::delete('/{id}', [VocabularyController::class, 'destroy']);
+    }
+);
+
+// Route::post('/vocabulary', [VocabularyController::class, 'store']);
+// Route::get('/vocabulary/lesson_id/{id}', [VocabularyController::class, 'index']);
+// Route::get('/vocabulary/{id}', [VocabularyController::class, 'show']);
+// Route::put('/vocabulary/{id}', [VocabularyController::class, 'update']);
+// Route::delete('/vocabulary/{id}', [VocabularyController::class, 'destroy']);
 
 
 Route::post('/participant', [ParticipantController::class, 'store']);

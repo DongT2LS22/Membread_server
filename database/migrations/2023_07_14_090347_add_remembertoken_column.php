@@ -13,12 +13,12 @@ class AddRemembertokenColumn extends Migration
      */
     public function up()
     {
-        Schema::table('users', function ($table) {
-            $table->string('api_token', 80)->after('password')
-                                ->unique()
-                                ->nullable()
-                                ->default(null);
-        });
+        // Schema::table('users', function ($table) {
+        //     $table->string('api_token', 80)->after('password')
+        //                         ->unique()
+        //                         ->nullable()
+        //                         ->default(null);
+        // });
     }
 
     /**

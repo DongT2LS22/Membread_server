@@ -37,6 +37,7 @@ class CoursesController extends Controller
         $course->create_at = Carbon::now();
         $course->isPublic = $request->isPublic == null ? "false" : $request->isPublic;
         $course->owner_id = 1;
+        $course->test = "test";
         $course->save();
         return response()->json([
             'message' => 'completed'

@@ -16,7 +16,7 @@ class Lesson extends Model
     ];
     public $timestamps = false;
 
-
+    protected $connection = 'pgsql';
     public function vocabularies(): HasMany
     {
         return $this->hasMany(Vocabulary::class);
