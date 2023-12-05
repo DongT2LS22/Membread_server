@@ -11,7 +11,13 @@ abstract class EloquentRepository implements RepositoryInterface{
         $this->setModel();
     }
 
-    abstract function setModel();
+    public function setModel(){
+        $this->_model = app()->make(
+            $this->getModel()
+        );
+    }
+
+    abstract function getModel();
 
     public function getAll()
     {
@@ -35,12 +41,17 @@ abstract class EloquentRepository implements RepositoryInterface{
         return false;
     }
 
-    public function update(array $attributes){
-        return $this->_model->create($attributes);
+    public function update(array $attributes,$id){
+        $result = $this->find($id);
+        if($result){
+            $result->update($attributes);
+            return true;
+        }
+        return false;
     }
 
     public function create(array $attributes){
-        return $this->_model->update($attributes);
+        return $this->_model->create($attributes);
     }
 
 

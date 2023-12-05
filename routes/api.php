@@ -48,13 +48,19 @@ Route::prefix('course')->group(
         Route::post('/', [CoursesController::class, 'store']);
         Route::put('/{id}', [CoursesController::class, 'update']);
         Route::delete('/{id}', [CoursesController::class, 'destroy']);
+        Route::get('/getall', function () {
+            dd("OKE");
+            $products = $this->courseRepository->getAll();
+            dd($products);
+            return response()->json($products);
+        });
     }
 );
 // Route::get('/course/{id}', [CoursesController::class, 'show']);
 // Route::post('course', [CoursesController::class, 'store']);
 // Route::put('/course/{id}', [CoursesController::class, 'update']);
 // Route::delete('/course/{id}', [CoursesController::class, 'destroy']);
-
+Route::get('/getall',[CoursesController::class,'index']);
 
 Route::prefix('lesson')->group(
     function () {

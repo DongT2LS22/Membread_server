@@ -5,9 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Jenssegers\Mongodb\Eloquent\Model;
 use Jenssegers\Mongodb\Eloquent\HybridRelations;
+use Jenssegers\Mongodb\Eloquent\SoftDeletes;
 class Lesson extends Model
 {
-    use HasFactory,HybridRelations;
+    use HasFactory,HybridRelations,SoftDeletes;
 
     protected $fillable = [
         'title',

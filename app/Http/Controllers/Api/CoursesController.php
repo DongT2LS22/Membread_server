@@ -8,7 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\Lesson;
-
+use App\Repositories\CourseRepository;
 
 class CoursesController extends Controller
 {
@@ -17,9 +17,18 @@ class CoursesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    protected $courseRepository;
+
+    public function __construct(CourseRepository $courseRepository) {
+        $this->courseRepository = $courseRepository;
+    }
     public function index()
     {
-        $products = Course::all();
+        // dd("OKE");
+        $products = $this->courseRepository->getAll();
+        // $products = Course::all();
+        // dd($products);
         return response()->json($products, Response::HTTP_OK);
     }
 
@@ -51,7 +60,7 @@ class CoursesController extends Controller
      */
     public function show($id)
     {
-        return response()->json(Course::all());
+        return $this->courseRepository->find($id);
     }
 
     /**
@@ -63,9 +72,12 @@ class CoursesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $input = $request->all();
-        Course::find($id)->fill($input)->save();
-        return back()->with('message', 'Record Successfully Updated!');
+        $data = $request->all();
+        $result = $this->courseRepository->update($data,$id);
+        if($result){
+            return response()->json(['message' => 'delete'],200);
+        }
+        return response()->json(['message' => 'failed'],200);
     }
 
     /**
@@ -76,7 +88,11 @@ class CoursesController extends Controller
      */
     public function destroy($id)
     {
-        return Course::destroy($id);
+        $result = $this->courseRepository->delete($id);
+        if($result){
+            return response()->json(['message' => 'delete'],200);
+        }
+        return response()->json(['message' => 'failed'],200);
     }
 
     public function userGetCourse(Request $request,$id){
