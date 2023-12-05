@@ -8,8 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Participant extends Model
 {
     use HasFactory;
-    protected $connection = 'pgsql';
+    protected $connection = 'mongodb';
+    protected $collection = 'participants';
     public $timestamps = false;
-
-    
 }

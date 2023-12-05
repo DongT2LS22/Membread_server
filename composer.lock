@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fae4aab3ac13be693c31910844dce5f0",
+    "content-hash": "b9d3b5b91a1e34f5ef97d7349fcdd315",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1875,16 +1875,16 @@
         },
         {
             "name": "mongodb/mongodb",
-            "version": "1.17.0",
+            "version": "1.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mongodb/mongo-php-library.git",
-                "reference": "9d9c917cf7ff275ed6bd63c596efeb6e49fd0e53"
+                "reference": "e4a7594ac4b31635fa77455c4038a7013024ba28"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mongodb/mongo-php-library/zipball/9d9c917cf7ff275ed6bd63c596efeb6e49fd0e53",
-                "reference": "9d9c917cf7ff275ed6bd63c596efeb6e49fd0e53",
+                "url": "https://api.github.com/repos/mongodb/mongo-php-library/zipball/e4a7594ac4b31635fa77455c4038a7013024ba28",
+                "reference": "e4a7594ac4b31635fa77455c4038a7013024ba28",
                 "shasum": ""
             },
             "require": {
@@ -8003,5 +8003,5 @@
         "php": "^7.3|^8.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.3.0"
 }

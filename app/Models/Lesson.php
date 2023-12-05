@@ -3,21 +3,20 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-
+use Jenssegers\Mongodb\Eloquent\Model;
+use Jenssegers\Mongodb\Eloquent\HybridRelations;
 class Lesson extends Model
 {
-    use HasFactory;
+    use HasFactory,HybridRelations;
 
     protected $fillable = [
         'title',
         'description',
     ];
     public $timestamps = false;
-
-    protected $connection = 'pgsql';
-    public function vocabularies(): HasMany
+    protected $collection = 'lessons';
+    protected $connection = 'mongodb';
+    public function vocabularies()
     {
         return $this->hasMany(Vocabulary::class);
     }

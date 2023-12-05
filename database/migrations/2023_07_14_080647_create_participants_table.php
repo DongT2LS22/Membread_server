@@ -14,10 +14,6 @@ class CreateParticipantsTable extends Migration
     public function up()
     {
         Schema::create('participants', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('course_id')->references('id')->on('courses');
-            $table->foreignId('user_id')->references('id')->on('users');
-            $table->smallInteger('role')->default(1);
         });
     }
 
