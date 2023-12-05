@@ -34,7 +34,6 @@ class CoursesController extends Controller
         $course = new Course;
         $course->title = $request->title;
         $course->description = $request->description;
-        $course->create_at = Carbon::now();
         $course->isPublic = $request->isPublic == null ? "false" : $request->isPublic;
         $course->owner_id = 1;
         $course->test = "test";
@@ -52,7 +51,7 @@ class CoursesController extends Controller
      */
     public function show($id)
     {
-        return response()->json(Course::with('lessons.vocabularies')->find($id));
+        return response()->json(Course::all());
     }
 
     /**
@@ -78,5 +77,9 @@ class CoursesController extends Controller
     public function destroy($id)
     {
         return Course::destroy($id);
+    }
+
+    public function userGetCourse(Request $request,$id){
+        
     }
 }
