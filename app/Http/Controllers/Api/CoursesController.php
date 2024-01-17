@@ -3,12 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Course;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use App\Models\Lesson;
-use App\Repositories\CourseRepository;
+use App\Repositories\CourseRepositories\CourseRepository;
+use App\Repositories\CourseRepositories\LanguageCourseRepository;
 
 class CoursesController extends Controller
 {
@@ -20,15 +18,13 @@ class CoursesController extends Controller
 
     protected $courseRepository;
 
-    public function __construct(CourseRepository $courseRepository) {
+    public function __construct(CourseRepository $courseRepository)
+    {
         $this->courseRepository = $courseRepository;
     }
     public function index()
     {
-        // dd("OKE");
         $products = $this->courseRepository->getAll();
-        // $products = Course::all();
-        // dd($products);
         return response()->json($products, Response::HTTP_OK);
     }
 
@@ -40,16 +36,15 @@ class CoursesController extends Controller
      */
     public function store(Request $request)
     {
-        $course = new Course;
-        $course->title = $request->title;
-        $course->description = $request->description;
-        $course->isPublic = $request->isPublic == null ? "false" : $request->isPublic;
-        $course->owner_id = 1;
-        $course->test = "test";
-        $course->save();
-        return response()->json([
-            'message' => 'completed'
-        ]);
+        // dd($request->all());
+        $data = $request->all();
+
+        $result = $this->courseRepository->create($data);
+        if ($result) {
+            return response()->json(["message" => "success"]);
+        }
+
+        return response()->json(["message" => "failed"]);
     }
 
     /**
@@ -60,7 +55,12 @@ class CoursesController extends Controller
      */
     public function show($id)
     {
-        return $this->courseRepository->find($id);
+        // dd($id);
+        $result =  $this->courseRepository->find($id);
+        if ($result) {
+            return response()->json($result, 200);
+        }
+        return response()->json(['message' => 'not found']);
     }
 
     /**
@@ -73,11 +73,11 @@ class CoursesController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->all();
-        $result = $this->courseRepository->update($data,$id);
-        if($result){
-            return response()->json(['message' => 'delete'],200);
+        $result = $this->courseRepository->update($data, $id);
+        if ($result) {
+            return response()->json(['message' => 'updated'], 200);
         }
-        return response()->json(['message' => 'failed'],200);
+        return response()->json(['message' => 'failed'], 200);
     }
 
     /**
@@ -89,13 +89,9 @@ class CoursesController extends Controller
     public function destroy($id)
     {
         $result = $this->courseRepository->delete($id);
-        if($result){
-            return response()->json(['message' => 'delete'],200);
+        if ($result) {
+            return response()->json(['message' => 'deleted'], 200);
         }
-        return response()->json(['message' => 'failed'],200);
-    }
-
-    public function userGetCourse(Request $request,$id){
-        
+        return response()->json(['message' => 'failed'], 200);
     }
 }

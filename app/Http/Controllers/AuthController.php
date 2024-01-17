@@ -13,15 +13,14 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $user = User::where('email', $request->email)->first();
-
-        if (!$user || !Hash::check($request->password, $user->password, [])) {
+        if ($user == null || !Hash::check($request->password, $user->password, [])) {
             return response()->json(
-                ['message' => "Sai mat khau"],
+                ['message' => "Email hoac mat khau sai"],
                 404
             );
         };
-
         $token = $user->createToken('authToken')->plainTextToken;
+        
         return response()->json(
             [
                 'token' => $token,
