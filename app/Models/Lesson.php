@@ -13,6 +13,7 @@ class Lesson extends Model
     protected $fillable = [
         'title',
         'description',
+        'attr'
     ];
     public $timestamps = false;
     protected $collection = 'lessons';

@@ -13,13 +13,13 @@ class CreateVocabulariesTable extends Migration
      */
     public function up()
     {
-        Schema::create('vocabularies', function (Blueprint $table) {
-            $table->id();
-            $table->text('vocabulary');
-            $table->text('mean');
-            $table->text('description')->nullable();
-            $table->foreignId('lesson_id')->references('id')->on('lessons');
-        });
+        // Schema::create('vocabularies', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->text('vocabulary');
+        //     $table->text('mean');
+        //     $table->text('description')->nullable();
+        //     $table->foreignId('lesson_id')->references('id')->on('lessons');
+        // });
     }
 
     /**

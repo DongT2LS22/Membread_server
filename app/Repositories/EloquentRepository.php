@@ -49,10 +49,7 @@ abstract class EloquentRepository implements RepositoryInterface{
         }
         return false;
     }
-
     public function create(array $attributes){
         return $this->_model->create($attributes);
     }
-
-
 }

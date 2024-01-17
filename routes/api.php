@@ -9,7 +9,9 @@ use App\Http\Controllers\EmailController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\ResetPasswordController;
+use App\Models\User;
 use App\Models\Vocabulary;
+use Illuminate\Database\Eloquent\Collection;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,9 +24,30 @@ use App\Models\Vocabulary;
 |
 */
 
+
+
 Route::middleware('auth:sanctum')->group(
     function () {
         Route::get('/logout', [AuthController::class, 'logout']);
+        Route::get("/user", function(){
+            $infoUser = User::where('phone' , '=' , '0975832246' )->first();
+            return response()->json($infoUser);
+        });
+
+        Route::prefix('course')->group(
+            function () {
+                Route::get('/{id}', [CoursesController::class, 'show']);
+                Route::post('/', [CoursesController::class, 'store']);
+                Route::put('/{id}', [CoursesController::class, 'update']);
+                Route::delete('/{id}', [CoursesController::class, 'destroy']);
+                Route::get('/getall', function () {
+                    dd("OKE");
+                    $products = $this->courseRepository->getAll();
+                    dd($products);
+                    return response()->json($products);
+                });
+            }
+        );
     }
 );
 Route::middleware('guest')->group(
@@ -42,20 +65,7 @@ Route::post('password/reset', ResetPasswordController::class);
 //     return response('hello world', 200)->header('Content-Type', 'text/plain');
 // });
 
-Route::prefix('course')->group(
-    function () {
-        Route::get('/{id}', [CoursesController::class, 'show']);
-        Route::post('/', [CoursesController::class, 'store']);
-        Route::put('/{id}', [CoursesController::class, 'update']);
-        Route::delete('/{id}', [CoursesController::class, 'destroy']);
-        Route::get('/getall', function () {
-            dd("OKE");
-            $products = $this->courseRepository->getAll();
-            dd($products);
-            return response()->json($products);
-        });
-    }
-);
+
 // Route::get('/course/{id}', [CoursesController::class, 'show']);
 // Route::post('course', [CoursesController::class, 'store']);
 // Route::put('/course/{id}', [CoursesController::class, 'update']);
@@ -96,6 +106,22 @@ Route::prefix('/vocabulary')->group(
 // Route::delete('/vocabulary/{id}', [VocabularyController::class, 'destroy']);
 
 
-Route::post('/participant', [ParticipantController::class, 'store']);
+// Route::post('/participant', [ParticipantController::class, 'store']);
 
 Route::get('/a', [EmailController::class, 'sendEmail']);
+
+
+Route::prefix('user')->group(
+    function () {
+        
+    }
+);
+
+Route::prefix('participant')->group(
+    function () {
+        // Route::get('/', [ParticipantController::class,'index']);
+        Route::post('/', [ParticipantController::class,'store']);
+        Route::put('/{id}',[ParticipantController::class,'update']);
+        Route::get('/{id}', [ParticipantController::class,'show']);
+    }
+);
